@@ -145,3 +145,19 @@ class MozLDAP(object):
         """
         res = self.query("(cn=*)", ['cn'], base="ou=groups,"+self.base)
         return [x[0] for x in res]
+
+    def get_users_in_groups(self, group):
+        """
+        desc: search for all users that belong to a group
+
+        return: ['cn=groupname,ou=groups,dc=mozilla', ...]
+        """
+        members = []
+        res = self.query("("+group+")", ['cn'], base="ou=groups,"+self.base)
+        for dn,attr in res:
+            for group in attr['cn']:
+                ures = self.query("(cn="+group+")", ['member'], base="ou=groups,"+self.base)
+                for dn,attr in ures:
+                    for user in attr['member']:
+                        members.append(user)
+        return members
