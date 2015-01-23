@@ -52,7 +52,8 @@ Login/pass:
 	l = mozlibldap.MozLDAP(LDAP_URL, LDAP_BIND_DN, LDAP_BIND_PASSWD)
 	print(l.get_user_posix_uid("gdestuynder@mozilla.com"))
 
-With client certificate (the certificate DN needs to match your LDAP DN). 
+With client certificate (the certificate DN needs to match your LDAP DN).
+The client cert, key file and optional ca cert (last argument) are all PEM files.
 
 .. code::
 
