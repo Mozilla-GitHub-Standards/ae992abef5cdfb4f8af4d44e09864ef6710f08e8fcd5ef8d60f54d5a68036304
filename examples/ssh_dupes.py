@@ -12,7 +12,7 @@
 
 import mozlibldap
 
-LDAP_URL='ldap://'
+LDAP_URL='ldaps://'
 LDAP_BIND_DN=''
 LDAP_BIND_PASSWD=''
 

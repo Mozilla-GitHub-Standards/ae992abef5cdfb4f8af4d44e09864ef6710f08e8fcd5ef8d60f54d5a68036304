@@ -12,10 +12,11 @@ import mozlibldap
 
 LDAP_URL='ldap://'
 LDAP_BIND_DN=''
-LDAP_BIND_PASSWD=''
+LDAP_BIND_CLIENTCERT=''
+LDAP_BIND_KEYFILE=''
 
 def main():
-	l = mozlibldap.MozLDAP(LDAP_URL, LDAP_BIND_DN, LDAP_BIND_PASSWD)
+	l = mozlibldap.MozLDAP(LDAP_URL, LDAP_BIND_DN, None, LDAP_BIND_CLIENTCERT, LDAP_BIND_KEYFILE)
 	x=l.get_user_posix_uid("gdestuynder@mozilla.com")
 	print("UID:", x)
 

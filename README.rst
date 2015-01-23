@@ -43,9 +43,23 @@ Python dependencies
 Usage
 -----
 
+Login/pass:
+
 .. code::
 
 	import mozlibldap
 	
 	l = mozlibldap.MozLDAP(LDAP_URL, LDAP_BIND_DN, LDAP_BIND_PASSWD)
+	print(l.get_user_posix_uid("gdestuynder@mozilla.com"))
+
+With client certificate (the certificate DN needs to match your LDAP DN). 
+
+.. code::
+
+        import mozlibldap
+
+	l = mozlibldap.MozLDAP(LDAP_URL, LDAP_BIND_DN, None, LDAP_BIND_CLIENTCERT, LDAP_BIND_KEYFILE)
+        # If using a self-signed CA in a specific location, like Mozilla CA
+	#l = mozlibldap.MozLDAP(LDAP_URL, LDAP_BIND_DN, None, LDAP_BIND_CLIENTCERT, LDAP_BIND_KEYFILE,
+        #                       "/etc/ssl/mozca.pem")
 	print(l.get_user_posix_uid("gdestuynder@mozilla.com"))
