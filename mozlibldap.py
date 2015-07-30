@@ -161,3 +161,22 @@ class MozLDAP(object):
                     for user in attr['member']:
                         members.append(user)
         return members
+
+    def get_pgp_in_group(self, group):
+        """
+        desc: return the PGP Fingerprints of the members of a group
+
+        return: [ 'mail=spongebob@mozilla.com,o=com,dc=mozilla', '8F8...'], ['mail=example@mozilla.com,o=com,dc=mozilla', 'DC0...'], ... ]
+        """
+        members = []
+        res = self.query("(cn="+group+")", ['member'], base="ou=groups,"+self.base)
+        for dn,attr in res:
+            for member in attr['member']:
+                try:
+                    res = self.get_user_attributes(member.split(",")[0])
+                except IndexError:
+                    continue
+                if 'pgpFingerprint' in res:
+                    fp = str(res['pgpFingerprint'][0]).replace(' ','')
+                    members.append([member, fp])
+        return members
