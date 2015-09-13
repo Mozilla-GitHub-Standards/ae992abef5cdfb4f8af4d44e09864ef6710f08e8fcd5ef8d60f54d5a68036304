@@ -33,7 +33,7 @@ class MozLDAP(object):
 
     def _fixdn(self, dn):
         # Auto-fix dn if an email is passed. This is not unique, unlike the dn. In doubt please always use a dn.
-        if not dn.startswith("mail="):
+        if not (dn.startswith("mail=") or dn.startswith("uid=")):
             dn = "mail="+dn
         if dn.find(",") != -1:
             raise Exception('InvalidDnFormat', 'Use mail=user, not a fully qualified DN')
@@ -93,6 +93,7 @@ class MozLDAP(object):
         proper typing.
 
         @dn str ex: "mail=user" (not fully qualified).
+        example: cli.get_user_attribute("uid=ffxbld", "sshPublicKey")
         return: [attr] type unknown
         """
         dn = self._fixdn(dn)
@@ -105,6 +106,7 @@ class MozLDAP(object):
         uid, ssh keys, picture, shirt size, phone, etc.
 
         @dn str ex: "mail=user" (not fully qualified).
+        example: cli.get_user_attributes("uid=ffxbld")
         return: {'attr': value, ...}
         """
         dn = self._fixdn(dn)
