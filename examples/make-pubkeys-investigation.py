@@ -39,6 +39,7 @@ def main():
             pubkey = string.join(pubkey.split(' ', 2)[:2], '\s')
             pubkey = pubkey.replace('/', '\/')
             pubkey = pubkey.replace('+', '\+')
+            pubkey = pubkey.replace('\r\n', '')
             contentre += '|({pubkey}\s.+)'.format(pubkey=pubkey)
         contentre += ')$'
         search["names"] = []
@@ -63,7 +64,14 @@ def main():
         searches[user+"_ssh_pubkeys"] = search
     action = {}
     action["name"] = "Investigate the content of authorized_keys for LDAP users"
-    action["target"] = "tags->>'operator'='IT' AND status='online'"
+    action["target"] = "(name LIKE 'admin%' OR name LIKE 'ssh%' " + \
+            "OR name LIKE 'people%' OR name LIKE 'zlb%' OR name IN " + \
+            "('reviewboard-hg1.dmz.scl3.mozilla.com', 'hgssh.stage.dmz.scl3.mozilla.com', " + \
+            "'hgssh1.dmz.scl3.mozilla.com', 'hgssh2.dmz.scl3.mozilla.com', " + \
+            "'git1.dmz.scl3.mozilla.com', 'git1.private.scl3.mozilla.com', " + \
+            "'svn1.dmz.phx1.mozilla.com', 'svn2.dmz.phx1.mozilla.com', " + \
+            "'svn3.dmz.phx1.mozilla.com')) AND tags->>'operator'='IT' AND " + \
+            "mode='daemon' AND status='online'"
     action["version"] = 2
     action["operations"] = []
     operation = {}
