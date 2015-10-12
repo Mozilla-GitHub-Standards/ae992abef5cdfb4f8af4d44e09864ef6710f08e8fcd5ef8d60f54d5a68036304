@@ -19,6 +19,9 @@ rpm:
 deb:
 	fpm -s python -t deb ./setup.py
 
+pypi:
+	python setup.py sdist check upload --sign
+
 clean:
 	rm -rf *pyc
 	rm -rf build

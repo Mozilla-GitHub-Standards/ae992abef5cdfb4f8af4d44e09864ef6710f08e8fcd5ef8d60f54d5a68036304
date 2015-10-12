@@ -6,6 +6,14 @@ This only works with LDAP databases using a schema similar to Mozilla's.
 
 Install
 --------
+Using pip
+~~~~~~~~~
+
+.. code::
+
+	sudo apt-get install libldap2-dev libsasl2-dev
+	pip install mozlibldap
+
 As a python module
 ~~~~~~~~~~~~~~~~~~
 

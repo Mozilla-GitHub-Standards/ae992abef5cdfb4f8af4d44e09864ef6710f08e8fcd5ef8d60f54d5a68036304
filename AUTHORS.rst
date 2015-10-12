@@ -1,4 +1,5 @@
 AUTHORS
 -------
 
-gdestuynder@mozilla.com
+Guillaume Destuynder	gdestuynder@mozilla.com
+Julien Vehent			jvehent@mozilla.com
