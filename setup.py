@@ -6,14 +6,17 @@
 # Author: gdestuynder@mozilla.com
 
 import os
-from distutils.core import setup
+try:
+    from setuptools import setup
+except ImportError:
+    from distutils.core import setup
 
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(
     name = "mozlibldap",
-	py_modules=['mozlibldap'],
+    py_modules=['mozlibldap'],
     version = "1.1.0",
     author = "Guillaume Destuynder",
     author_email = "gdestuynder@mozilla.com",
@@ -25,7 +28,7 @@ setup(
     install_requires=['python-ldap'],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
-		"Topic :: Software Development :: Libraries :: Python Modules",
+        "Topic :: Software Development :: Libraries :: Python Modules",
         "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
     ],
 )
